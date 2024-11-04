@@ -16,4 +16,10 @@
         <_Parameter1>ProductListWithCart.Tests</_Parameter1>
       </AssemblyAttribute>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductListWithCart.Application\ProductListWithCart.Application.csproj" />
+    <ProjectReference Include="..\ProductListWithCart.Domain\ProductListWithCart.Domain.csproj" />
+    <ProjectReference Include="..\ProductListWithCart.IoC\ProductListWithCart.IoC.csproj" />
+  </ItemGroup>
 </Project>

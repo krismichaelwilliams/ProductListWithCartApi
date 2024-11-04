@@ -18,6 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProductListWithCart.Domain\ProductListWithCart.Domain.csproj" />
+    <ProjectReference Include="..\ProductListWithCart.Application\ProductListWithCart.Application.csproj" />
   </ItemGroup>
 </Project>

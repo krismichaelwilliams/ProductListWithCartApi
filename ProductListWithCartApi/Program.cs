@@ -1,13 +1,13 @@
-using ProductListWithCartApi.Extensions;
+using ProductListWithCart.IoC;
 
-var configuration =  new ConfigurationBuilder()
+var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.RegisterDependencies();
+builder.Services.RegisterDependencies(configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

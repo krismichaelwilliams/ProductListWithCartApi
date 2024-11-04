@@ -1,19 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProductListWithCart.Domain;
+using ProductListWithCart.Application.Interfaces;
 
-namespace ProductListWithCart.DataAccess.Wrappers
+namespace ProductListWithCart.DataAccess.Context
 {
-    internal class MongoDriverWrapper : IMongoDriverWrapper
+    internal class MenuContext : IMenuContext
     {
-        private IMongoDatabase db;
-
-        public MongoDriverWrapper(string dbName, string connectionString)
+        private readonly IMongoDatabase db;
+        public MenuContext(string dbName, string connectionString)
         {
             var client = new MongoClient(connectionString);
             db = client.GetDatabase(dbName);
