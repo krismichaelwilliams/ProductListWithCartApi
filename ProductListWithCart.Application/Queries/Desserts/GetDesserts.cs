@@ -12,9 +12,9 @@ namespace ProductListWithCart.Application.Queries.Desserts
             _dessertsRepository = dessertsRepository;
         }
 
-        public List<DessertItem> FromTable(string table)
+        public async Task<List<DessertItem>> FromTable(string table)
         {
-            return _dessertsRepository.GetDesserts<DessertItem>(table);
+            return await _dessertsRepository.GetDesserts<DessertItem>(table);
         }
     }
 }

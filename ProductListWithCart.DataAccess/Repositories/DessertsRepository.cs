@@ -3,7 +3,7 @@ using ProductListWithCart.Application.Repositories;
 
 namespace ProductListWithCart.DataAccess.Repositories
 {
-    internal class DessertsRepository : IDessertsRepository
+    public class DessertsRepository : IDessertsRepository
     {
         readonly IMenuContext _menuContext;
         public DessertsRepository(IMenuContext menuContext)
@@ -11,9 +11,9 @@ namespace ProductListWithCart.DataAccess.Repositories
             _menuContext = menuContext;
         }
 
-        public List<T> GetDesserts<T>(string table)
+        public async Task<List<T>> GetDesserts<T>(string table)
         {
-            return _menuContext.GetDesserts<T>(table);
+            return await _menuContext.GetDesserts<T>(table);
         }
 
     }

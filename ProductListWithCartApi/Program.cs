@@ -1,8 +1,10 @@
 using ProductListWithCart.IoC;
 
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env}.json")
+                .AddUserSecrets<Program>()
                 .Build();
 
 var builder = WebApplication.CreateBuilder(args);

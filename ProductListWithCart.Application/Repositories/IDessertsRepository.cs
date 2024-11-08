@@ -2,6 +2,6 @@
 {
     public interface IDessertsRepository
     {
-        public List<T> GetDesserts<T>(string table);
+        public Task<List<T>> GetDesserts<T>(string table);
     }
 }

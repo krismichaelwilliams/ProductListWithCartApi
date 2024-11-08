@@ -1,22 +1,22 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using ProductListWithCart.Application.Interfaces;
 
 namespace ProductListWithCart.DataAccess.Context
 {
-    internal class MenuContext : IMenuContext
+    public class MenuContext : IMenuContext
     {
         private readonly IMongoDatabase db;
         public MenuContext(string dbName, string connectionString)
         {
-            var client = new MongoClient(connectionString);
+            var client = new MongoClient();
             db = client.GetDatabase(dbName);
         }
 
-        public List<T> GetDesserts<T>(string table)
+        public async Task<List<T>> GetDesserts<T>(string table)
         {
             var collection = db.GetCollection<T>(table);
-            return collection.Find(new BsonDocument()).ToList();
+            var result = await collection.Find(_ => true).ToListAsync();
+            return result;
         }
     }
 }

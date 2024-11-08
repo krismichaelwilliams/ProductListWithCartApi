@@ -9,6 +9,7 @@ namespace ProductListWithCart.Api.Controllers.Desserts
     [ApiController]
     public class DessertsController : ControllerBase
     {
+        private const string Desserts = "Desserts";
         private readonly IGetDesserts _getDesserts;
 
         public DessertsController(IGetDesserts getDesserts)
@@ -18,9 +19,10 @@ namespace ProductListWithCart.Api.Controllers.Desserts
 
         // GET: api/<DessertsController>
         [HttpGet]
-        public IActionResult GetDesserts()
+        public async Task<IActionResult> GetDesserts()
         {
-            throw new NotImplementedException();
+            var result = await _getDesserts.FromTable(Desserts);
+            return Ok(result);
         }
 
     }

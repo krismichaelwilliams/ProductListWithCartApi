@@ -4,6 +4,6 @@ namespace ProductListWithCart.Application.Queries.Desserts
 {
     public interface IGetDesserts
     {
-        public List<DessertItem> FromTable(string table);
+        public Task<List<DessertItem>> FromTable(string table);
     }
 }
