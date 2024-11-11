@@ -21,8 +21,15 @@ namespace ProductListWithCart.Api.Controllers.Desserts
         [HttpGet]
         public async Task<IActionResult> GetDesserts()
         {
-            var result = await _getDesserts.FromTable(Desserts);
-            return Ok(result);
+            try
+            {
+                var result = await _getDesserts.FromTable(Desserts);
+                return Ok(result);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
     }

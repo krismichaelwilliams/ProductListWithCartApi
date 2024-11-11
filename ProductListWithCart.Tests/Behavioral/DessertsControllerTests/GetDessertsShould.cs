@@ -14,29 +14,45 @@ namespace ProductListWithCart.Tests.Behavioral.DessertsControllerTests
     {
         private const string Desserts = "Desserts";
         private readonly IFixture _fixture;
+        private readonly Mock<IMenuContext> _mockContext;
+        private readonly DessertsRepository _dessertsRepository;
+        private readonly GetDesserts _getDesserts;
+        private readonly DessertsController _sut;
 
         public GetDessertsShould()
         {
             _fixture = new Fixture();
+            _mockContext = new Mock<IMenuContext>();
+            _dessertsRepository = new DessertsRepository(_mockContext.Object);
+            _getDesserts = new GetDesserts(_dessertsRepository);
+            _sut = new DessertsController(_getDesserts);
         }
 
         [Fact]
-        public async Task ReturnListOfDessertData()
+        public async Task Return200_WithListOfDessertData()
         {
             // Arrange
-            var mockContext = new Mock<IMenuContext>();
-            var dessertsRepository = new DessertsRepository(mockContext.Object);
-            var getDesserts = new GetDesserts(dessertsRepository);
-            var sut = new DessertsController(getDesserts);
             var expectedResult = _fixture.Create<List<DessertItem>>();
-
-            mockContext.Setup(x => x.GetDesserts<DessertItem>(Desserts)).ReturnsAsync(expectedResult);
+            _mockContext.Setup(x => x.GetDesserts<DessertItem>(Desserts)).ReturnsAsync(expectedResult);
 
             // Act
-            var result = await sut.GetDesserts() as OkObjectResult;
+            var result = await _sut.GetDesserts() as OkObjectResult;
 
             // Assert
             result.Value.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public async Task Return500_WhenUnableToRetrieveDessertData()
+        {
+            // Arrange
+            _mockContext.Setup(x => x.GetDesserts<DessertItem>(Desserts)).ThrowsAsync(new Exception());
+
+            // Act
+            var result = await _sut.GetDesserts() as StatusCodeResult;
+
+            // Assert
+            result.StatusCode.Should().Be(500);
         }
     }
 }
