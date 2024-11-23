@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductListWithCart.Application.Extensions;
 using ProductListWithCart.Application.Queries.Desserts;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,13 +25,12 @@ namespace ProductListWithCart.Api.Controllers.Desserts
             try
             {
                 var result = await _getDesserts.FromTable(Desserts);
-                return Ok(result);
+                return Ok(result.ToSuccessResponse());
             }
             catch
             {
                 return StatusCode(500);
             }
         }
-
     }
 }

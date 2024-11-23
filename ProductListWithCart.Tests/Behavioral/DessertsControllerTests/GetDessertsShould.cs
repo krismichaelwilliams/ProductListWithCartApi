@@ -32,14 +32,20 @@ namespace ProductListWithCart.Tests.Behavioral.DessertsControllerTests
         public async Task Return200_WithListOfDessertData()
         {
             // Arrange
-            var expectedResult = _fixture.Create<List<DessertItem>>();
-            _mockContext.Setup(x => x.GetDesserts<DessertItem>(Desserts)).ReturnsAsync(expectedResult);
+            var getDessertsResponse = _fixture.Create<List<DessertItem>>();
+            var expectedResult = new DessertItemSuccessResponse()
+            {
+                Status = "success",
+                Data = getDessertsResponse
+            };
+
+            _mockContext.Setup(x => x.GetDesserts<DessertItem>(Desserts)).ReturnsAsync(getDessertsResponse);
 
             // Act
             var result = await _sut.GetDesserts() as OkObjectResult;
 
             // Assert
-            result.Value.Should().Be(expectedResult);
+            result.Value.Should().BeEquivalentTo(expectedResult);
         }
 
         [Fact]
